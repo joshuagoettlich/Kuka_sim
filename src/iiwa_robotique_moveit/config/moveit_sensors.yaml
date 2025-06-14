@@ -1,0 +1,20 @@
+# Parameters for the Planning Scene Monitor
+planning_scene_monitor:
+  publish_planning_scene: True
+  publish_geometry_updates: True
+  publish_state_updates: True
+  publish_transforms_updates: True
+
+  # OctoMap parameters
+  octomap_frame: world
+  octomap_resolution: 0.02
+
+  # Sensor configuration using a list of sensor plugins
+  sensors:
+    - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+      point_cloud_topic: /world/default/model/camera1/link/link/sensor/depth_camera1/depth_image/points
+      max_range: 5.0
+      point_subsample: 1
+      padding_offset: 0.1
+      padding_scale: 1.0
+      filtered_cloud_topic: filtered_cloud

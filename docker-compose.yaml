@@ -1,0 +1,30 @@
+services:
+  ros2_iiwa_gripper:
+    container_name: ros2_iiwa_gripper
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # target: ros2_iiwa_gripper # This line is removed as Dockerfile is single-stage
+    volumes:
+      - ./src/:/root/ros2_ws/src/src:rw
+      - ./Move_pack:/root/ros2_ws/src/Move_pack:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: "host"
+    environment:
+      - DISPLAY
+      - TERM
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all # Makes all GPUs visible
+      - NVIDIA_DRIVER_CAPABILITIES=all # Enables all driver capabilities
+    privileged: true
+    stdin_open: true
+    tty: true
+    runtime: nvidia # Specify the NVIDIA runtime
+    deploy: # Added deploy section for GPU resources
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all # Or specify the number of GPUs, e.g., 1
+              capabilities: [gpu]

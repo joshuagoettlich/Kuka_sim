@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: box-mc_cafe
+newmtl box-mc_cafe_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd box-mc_cafe_0.png

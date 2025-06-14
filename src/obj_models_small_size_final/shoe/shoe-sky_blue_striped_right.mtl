@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: shoe-sky_blue_striped_right
+newmtl shoe-sky_blue_striped_right_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd shoe-sky_blue_striped_right_0.png

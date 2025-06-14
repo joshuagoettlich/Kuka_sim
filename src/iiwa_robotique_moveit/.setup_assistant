@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: iiwa_with_robotique
+    relative_path: urdf/iiwa_with_robotiq.urdf.xacro
+  srdf:
+    relative_path: config/iiwa_with_robotiq.srdf
+  package_settings:
+    author_name: Joshua Goettlich
+    author_email: goettlich-joshua@t-online.de
+    generated_timestamp: 1749740271
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

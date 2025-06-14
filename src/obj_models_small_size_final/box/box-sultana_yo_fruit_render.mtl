@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: box-sultana_yo_fruit_render
+newmtl box-sultana_yo_fruit_render_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd box-sultana_yo_fruit_render_0.png

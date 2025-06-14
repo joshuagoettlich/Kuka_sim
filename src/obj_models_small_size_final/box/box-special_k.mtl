@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: box-special_k
+newmtl box-special_k_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd box-special_k_0.png

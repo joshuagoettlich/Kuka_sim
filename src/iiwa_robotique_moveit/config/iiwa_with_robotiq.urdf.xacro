@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="iiwa_with_robotiq">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+
+    <!-- Import iiwa_with_robotiq urdf file -->
+    <xacro:include filename="$(find iiwa_with_robotique)/urdf/iiwa_with_robotiq.urdf.xacro" />
+
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="iiwa_with_robotiq.ros2_control.xacro" />
+
+
+    <xacro:iiwa_with_robotiq_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+    <gazebo>
+      <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin"> 
+        <parameters>$(arg controllers_file)</parameters>
+      </plugin>
+    </gazebo>
+</robot>
+
+

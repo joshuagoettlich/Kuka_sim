@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: teapot-new_chinese
+newmtl teapot-new_chinese_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd teapot-new_chinese_0.png

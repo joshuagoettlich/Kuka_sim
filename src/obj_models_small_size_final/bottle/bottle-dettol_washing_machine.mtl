@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: bottle-dettol_washing_machine
+newmtl bottle-dettol_washing_machine_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd bottle-dettol_washing_machine_0.png

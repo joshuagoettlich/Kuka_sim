@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: cup-teal_pattern_ikea
+newmtl cup-teal_pattern_ikea_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd cup-teal_pattern_ikea_0.png

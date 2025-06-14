@@ -1,0 +1,59 @@
+planning_pipelines:
+  # You may have other pipelines here like chomp, stomp, etc.
+  # We will modify the ompl pipeline which is often used as a default for its adapters.
+  ompl:
+    planning_plugins:
+      - ompl_interface/OMPLPlanner
+    request_adapters:
+      # This is the chain of post-processing plugins to run on the trajectory
+      - default_planning_request_adapters/ResolveConstraintFrames
+      - default_planning_request_adapters/ValidateWorkspaceBounds
+      - default_planning_request_adapters/CheckStartStateBounds
+      - default_planning_request_adapters/CheckStartStateCollision
+      - default_planning_request_adapters/FixWorkspaceBounds
+      - default_planning_request_adapters/FixStartStateBounds
+      - default_planning_request_adapters/FixStartStateCollision
+      - default_planning_request_adapters/AddTimeOptimalParameterization
+
+  # Make sure your chomp pipeline is also defined if you use it directly
+  chomp:
+    planning_plugins:
+      - chomp_interface/CHOMPPlanner
+    request_adapters:
+      # Use the same robust chain of adapters for CHOMP
+      - default_planning_request_adapters/ResolveConstraintFrames
+      - default_planning_request_adapters/ValidateWorkspaceBounds
+      - default_planning_request_adapters/CheckStartStateBounds
+      - default_planning_request_adapters/CheckStartStateCollision
+      - default_planning_request_adapters/FixWorkspaceBounds
+      - default_planning_request_adapters/FixStartStateBounds
+      - default_planning_request_adapters/FixStartStateCollision
+      - default_planning_request_adapters/AddTimeOptimalParameterization
+
+# Also, add this parameter at the top level of the file
+# This tells MoveIt to use Ruckig as the default time-parameterization algorithm
+trajectory_execution:
+  allowed_execution_duration_scaling: 1.2
+  allowed_goal_duration_margin: 0.5
+  allowed_start_tolerance: 0.01
+
+# Add this parameter to enable Ruckig
+moveit_simple_controller_manager:
+  controller_names:
+    - iiwa_controller
+    - gripper_controller
+
+# The new parameter to add or modify
+default_planning_pipeline: ompl  # Or chomp, if you prefer
+
+# Most importantly, ensure you have this section to use Ruckig by default
+# If it exists, modify it. If not, add it.
+default_planner_request_adapter_plugins:
+  - default_planning_request_adapters/ResolveConstraintFrames
+  - default_planning_request_adapters/ValidateWorkspaceBounds
+  - default_planning_request_adapters/CheckStartStateBounds
+  - default_planning_request_adapters/CheckStartStateCollision
+  - default_planning_request_adapters/FixWorkspaceBounds
+  - default_planning_request_adapters/FixStartStateBounds
+  - default_planning_request_adapters/FixStartStateCollision
+  - default_planning_request_adapters/AddTimeOptimalParameterization

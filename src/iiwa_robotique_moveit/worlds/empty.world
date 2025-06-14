@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="default">
+
+    <physics name="default_physics" default="true" type="bullet">
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <gravity>0 0 -9.81</gravity>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>1.92736 -1.37661 1.74008 0 0.275643 2.35619</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+    <light type="directional" name="sun">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.4 0.4 0.4 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+      <cast_shadows>false</cast_shadows>
+    </light>
+    <light type="point" name="point_light_1">
+      <pose>0.75 0 2.0 0 0 0</pose>
+      <diffuse>0.8 0.8 0.7 1</diffuse>
+      <specular>0.2 0.2 0.1 1</specular>
+      <attenuation>
+        <range>10</range>
+        <linear>0.2</linear>
+        <constant>0.8</constant>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="spot" name="spotlight_1">
+      <pose>1.5 0.5 2.5 0 0.7 -1.57</pose>
+      <diffuse>0.7 0.7 0.9 1</diffuse>
+      <specular>0.1 0.1 0.3 1</specular>
+      <spot>
+        <inner_angle>0.1</inner_angle>
+        <outer_angle>0.5</outer_angle>
+        <falloff>1.0</falloff>
+      </spot>
+      <direction>0 0 -1</direction>
+      <attenuation>
+        <range>10</range>
+        <linear>0.1</linear>
+        <constant>0.2</constant>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <plugin
+      filename="ignition-gazebo-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>OptiX</render_engine>
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ground Plane</uri>
+    </include>
+
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Table</uri>
+      <pose>1.0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>
+        https://fuel.gazebosim.org/1.0/GoogleResearch/models/ACE_Coffee_Mug_Kristen_16_oz_cup
+      </uri>
+      <pose>0.5 0.3 1.0 0 0 0.8</pose>
+    </include>
+
+    <include>
+      <uri>
+        https://fuel.gazebosim.org/1.0/GoogleResearch/models/Threshold_Porcelain_Teapot_White
+      </uri>
+      <pose>0.5 0 1.0 0 0 0.8</pose>
+    </include>
+
+    <include>
+      <name>bowl</name>
+      <uri>bowl</uri>
+      <pose>0.5 -0.25 1.0 0 0 0.8</pose>
+    </include>
+
+  </world>
+</sdf>

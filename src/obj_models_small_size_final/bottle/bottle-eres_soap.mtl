@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: bottle-eres_soap
+newmtl bottle-eres_soap_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd bottle-eres_soap_0.png

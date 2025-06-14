@@ -1,0 +1,65 @@
+<sdf version='1.7'>
+  <model name="camera1">
+    <static>true</static>
+    <pose>0 0 0 0 0 0</pose>
+    <link name="link_1">
+      <pose>0.05 0.05 0.05 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>package://intel_435/meshes/d435.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>package://intel_435/meshes/d435.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <sensor name="rgbd_camera_1" type="camera">
+        <camera name="camera_lens">
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>10</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>true</visualize>
+        <topic>camera1/image</topic>
+      </sensor>
+      <sensor name="depth_camera_1" type="depth_camera">
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <topic>depth_camera1</topic>
+        <camera>
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R_FLOAT32</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>4.0</far>
+          </clip>
+        </camera>
+      </sensor>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,104 @@
+ARG ROS_DISTRO="humble"
+
+# Base Image: ROS 2 Humble
+FROM ros:${ROS_DISTRO}
+# Set shell to bash and enable sourcing in RUN commands
+SHELL ["/bin/bash", "-c"]
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update and install system dependencies, build tools,
+# Gazebo Fortress, gz_ros2_control, and their ROS 2 integration packages.
+# Also install python3-serial and libserial-dev for the Robotiq gripper driver.
+# Add libtinyxml2-dev as it's a common dependency for URDF parsing and was missing previously.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    gnupg \
+    lsb-release \
+    python3-pip \
+    python3-venv \
+    python3-colcon-common-extensions \
+    python3-rosdep \
+    python3-vcstool \
+    build-essential \
+    cmake \
+   python3-serial \
+    libserial-dev \
+    # URDF parsing dependency
+    libtinyxml2-dev \
+    # For X11 forwarding if GUI interaction from container is desired (optional)
+    xauth \
+    xvfb \
+    # Clean up apt cache
+ && rm -rf /var/lib/apt/lists/*
+
+# Initialize rosdep (run as root, but allow failure if already initialized)
+RUN rosdep init || true
+# Update rosdep database (as default non-root user 'ros' if it exists, or root)
+# Switching to a temporary user 'ros' if it exists, or running as root.
+# The official ros images create a 'ros' user.
+USER root
+RUN rosdep update --rosdistro humble
+
+
+RUN apt install python3-colcon-common-extensions
+
+RUN apt-get update && apt-get install -y ros-humble-serial-driver
+
+# Create a ROS 2 workspace
+WORKDIR /ros2_ws
+RUN mkdir src
+
+COPY ./src ./src
+RUN apt update && \
+    apt install -y libeigen3-dev
+
+
+# Clone the Kuka iiwa_ros2 repository (humble branch)
+# Note: This package needs adaptation for Gazebo Fortress and gz_ros2_control.
+# Consider using/adapting PR #46 from ICube-Robotics/iiwa_ros2.
+
+# Clone the ROS2 serial communication library (ros2 branch)
+# This is a critical dependency for robotiq_driver and needs to be built from source.
+# Import .repos file for iiwa_ros2 additional dependencies (if any not covered by rosdep)
+# Ensure the .repos file exists and is correctly formatted in the cloned repo.
+# This command needs to be run after sourcing the ROS environment.
+
+# Install dependencies for the workspace packages using rosdep
+# Run apt-get update again before rosdep install to ensure apt cache is fresh for ROS packages
+
+
+RUN apt-get update && \
+    source /opt/ros/humble/setup.bash && \
+    rosdep install --from-paths src --ignore-src -y -r --rosdistro humble && \
+    rm -rf /var/lib/apt/lists/*
+
+# Build and install the 'serial' package first.
+# This ensures its CMake configuration files are available for robotiq_driver.
+# TO THIS (skipping both packages):
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+    colcon build --symlink-install --event-handlers console_direct+ --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-skip admittance_controller ros2_controllers
+# Build the entire ROS2 workspace
+# Source the local workspace's install/setup.bash to make the 'serial' package findable.
+RUN source /opt/ros/humble/setup.bash && \
+    source /ros2_ws/install/setup.bash && \
+    colcon build --symlink-install --event-handlers console_direct+ --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+# Copy the entrypoint script into the image and make it executable
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Set ROS_DOMAIN_ID or other ROS-specific environment variables if needed
+ENV ROS_DOMAIN_ID=30
+ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+
+# Set the entrypoint for the container
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Default command to run when the container starts (e.g., launching simulation or opening a bash shell)
+# Replace 'my_robot_bringup' and 'spawn_iiwa_robotiq_gazebo.launch.py' with your actual package and launch file.
+# CMD ["ros2", "launch", "my_robot_bringup", "spawn_iiwa_robotiq_gazebo.launch.py"]
+CMD ["bash"]
+

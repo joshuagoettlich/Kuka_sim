@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="iiwa_with_robotiq">
+
+    <link name="world" />
+
+    <xacro:include filename="$(find iiwa_description)/urdf/iiwa.urdf.xacro" />
+
+    <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
+
+    <xacro:iiwa parent="world" prefix="">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:iiwa>
+
+    <xacro:robotiq_gripper prefix="" parent="tool0">
+        <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+    </xacro:robotiq_gripper>
+
+</robot>

@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: cup-red_heart
+newmtl cup-red_heart_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd cup-red_heart_0.png

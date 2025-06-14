@@ -1,0 +1,7 @@
+# Created by Open3D 
+# object name: tube-toothpaste_signal_kids_bio
+newmtl tube-toothpaste_signal_kids_bio_0
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd tube-toothpaste_signal_kids_bio_0.png
