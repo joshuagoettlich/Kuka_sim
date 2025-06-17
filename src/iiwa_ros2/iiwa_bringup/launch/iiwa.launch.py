@@ -427,8 +427,22 @@ def generate_launch_description():
             ),
             condition=IfCondition(use_sim),
         )
+
+        # Bridge to publish world poses from Gazebo to ROS
+        # Bridge to publish world object and camera poses from Gazebo to ROS
+        gz_pose_bridge = Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='gz_pose_bridge',
+            arguments=[
+                # This topic name MUST match the output from 'ign topic -l'
+                '/world/default/pose/info@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V'
+            ],
+            output='screen'
+        )
         
         nodes_to_start = [
+            gz_pose_bridge,
             control_node,
             robot_state_pub_node,
             start_sim_handler,

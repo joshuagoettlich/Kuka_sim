@@ -12,7 +12,6 @@ find_package(rosidl_default_generators REQUIRED)
 # Install directories
 install(
   DIRECTORY
-    launch
     urdf
   DESTINATION
     share/${PROJECT_NAME}

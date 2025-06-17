@@ -68,9 +68,9 @@ RUN apt-get update && apt-get remove -y ros-humble-moveit* && \
     # Source the ROS environment and install dependencies
     source /opt/ros/${ROS_DISTRO}/setup.bash && \
     rosdep install -r --from-paths . --ignore-src --rosdistro ${ROS_DISTRO} -y && \
-    # Build the MoveIt workspace
+    # Build the MoveIt workspace using 8 cores
     cd /root/ws_moveit && \
-    colcon build --mixin release && \
+    colcon build --mixin release --parallel-workers 1 && \
     # Clean up apt lists
     rm -rf /var/lib/apt/lists/*
 

@@ -1,16 +1,21 @@
-# Default initial positions for iiwa_with_robotiq's ros2_control fake system
-# The joint names are now at the root of the file.
+# "Upright Home" or "Ready" Position for KUKA LBR iiwa
+# A common, neutral starting pose.
+# All joint values are in radians.
 
-joint_a1: 0
-joint_a2: 1.571
-joint_a3: 0
-joint_a4: 0
-joint_a5: 0
-joint_a6: 0
-joint_a7: 0
-robotiq_85_left_knuckle_joint: 0.1745 
-robotiq_85_right_knuckle_joint: -0.1745 # multiplier: -1
-robotiq_85_left_inner_knuckle_joint: 0.1745  # multiplier: 1
-robotiq_85_right_inner_knuckle_joint: -0.1745 # multiplier: -1
-robotiq_85_left_finger_tip_joint: -0.1745 # multiplier: -1
-robotiq_85_right_finger_tip_joint: 0.1745  # multiplier: 1
+joint_a1: 0.0
+joint_a2: 0.5  # -45 degrees
+joint_a3: 0.0
+joint_a4: -1.571   # +90 degrees
+joint_a5: 0.0
+joint_a6: 0.785  # -45 degrees
+joint_a7: 0.0
+
+# --- Gripper State (Example: Partially Open) ---
+# Your existing values for a partially open gripper are fine.
+# The values below represent a slightly more open gripper.
+robotiq_85_left_knuckle_joint: 0.1
+robotiq_85_right_knuckle_joint: -0.1
+robotiq_85_left_inner_knuckle_joint: 0.1
+robotiq_85_right_inner_knuckle_joint: -0.1
+robotiq_85_left_finger_tip_joint: -0.1
+robotiq_85_right_finger_tip_joint: 0.1
